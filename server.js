@@ -18,6 +18,7 @@ db.connection().then((database) => {
   app.use("/user", require("./routes/user.routes"));
   app.use("/projects", require("./routes/project.routes"));
   app.use("/upload", require("./routes/fileUpload.routes"));
+  app.use("/taskLists", require("./routes/taskList.routes"));
 
   
   
