@@ -15,12 +15,14 @@ app.use(bodyParser.json({ limit: "15gb" }));
 db.connection().then((database) => {
   module.exports = database;
 
+  app.get("/", (req, res) => {
+    res.send("Project Management API running on Heroku...!!!");
+  });
+
   app.use("/user", require("./routes/user.routes"));
   app.use("/projects", require("./routes/project.routes"));
   app.use("/upload", require("./routes/fileUpload.routes"));
   app.use("/taskLists", require("./routes/taskList.routes"));
-
-  
   
   app.listen(port, () => {
     console.log(`The project app is up on port ${port}`);
