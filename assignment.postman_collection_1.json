@@ -1,0 +1,443 @@
+{
+	"info": {
+		"_postman_id": "d0734775-c6d5-4dab-9d31-e2877747977e",
+		"name": "assignment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "create-user heroku",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \r\n    \"emailAddress\" : \"root@hotmail.com\",\r\n    \"password\" : \"abc456\",\r\n    \"firstname\" : \"root\",\r\n    \"lastname\" :  \"root\",\r\n    \"type\": \"Employee\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://afternoon-meadow-06331.herokuapp.com/user/create-user",
+					"protocol": "https",
+					"host": [
+						"afternoon-meadow-06331",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"user",
+						"create-user"
+					]
+				},
+				"description": "sighup for mentor and employee"
+			},
+			"response": []
+		},
+		{
+			"name": "login heroku",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"emailAddress\": \"robstark@hotmail.com\",\r\n    \"password\": \"abc456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://afternoon-meadow-06331.herokuapp.com/user/login",
+					"protocol": "https",
+					"host": [
+						"afternoon-meadow-06331",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"user",
+						"login"
+					]
+				},
+				"description": "login for mentor and employee"
+			},
+			"response": []
+		},
+		{
+			"name": "create-project",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"projectName\": \"Customer dashboard 1 \",\r\n    \"requirements\": [\r\n        {\r\n            \"title\": \"Display all customer accounts on dashboard with balances\",\r\n            \"summary\": \"Show all the customer banks accounts on dashboard with their balances\",\r\n            \"type\": \"Functional\",\r\n            \"startDate\": \"2021-12-08\",\r\n            \"endDate\": \"2021-12-22\"\r\n        },\r\n        {\r\n            \"title\": \"Mask card numbers\",\r\n            \"summary\": \"Mask customer card number before showing on dashboard\",\r\n            \"type\": \"Functional\",\r\n            \"startDate\": \"2021-12-15\",\r\n            \"endDate\": \"2021-12-30\"\r\n        },\r\n        {\r\n            \"name\": \"MERN Stack Assignment.pdf\",\r\n            \"url\": \"F:\\\\Assignment\\\\new_assignment\\\\uploads\\\\MERN Stack Assignment.pdf\"\r\n        }\r\n    ],\r\n    \"startDate\": \"2021-11-01\",\r\n    \"endDate\": \"2022-06-30\",\r\n    \"mentorId\": \"6166b01c9ff2ca7e1461029a\",\r\n    \"members\": [\r\n        \"6166afc69ff2ca7e14610298\",\"6166afeb9ff2ca7e14610299\"\r\n    ],\r\n    \"documents\": [\r\n         {\r\n            \"name\": \"MERN Stack Assignment.pdf\",\r\n            \"url\": \"F:\\\\Assignment\\\\new_assignment\\\\uploads\\\\MERN Stack Assignment.pdf\"\r\n        }\r\n    ]\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://afternoon-meadow-06331.herokuapp.com/projects/create-project",
+					"protocol": "https",
+					"host": [
+						"afternoon-meadow-06331",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"projects",
+						"create-project"
+					]
+				},
+				"description": "create project with add requirement and members"
+			},
+			"response": []
+		},
+		{
+			"name": "create-taskList",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"projectId\": \"6166b10a9ff2ca7e146102a0\",\r\n    \"taskListName\": \"create home page\",\r\n    \"description\" : \"crud operation for home page\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://afternoon-meadow-06331.herokuapp.com/taskLists/create-task",
+					"protocol": "https",
+					"host": [
+						"afternoon-meadow-06331",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"taskLists",
+						"create-task"
+					]
+				},
+				"description": "create task by projectId"
+			},
+			"response": []
+		},
+		{
+			"name": "delete-project",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"projectName\": \"Customer dashboard 1\",\r\n    \"requirements\": [\r\n        {\r\n            \"title\": \"Display all customer accounts on dashboard with balances\",\r\n            \"summary\": \"Show all the customer banks accounts on dashboard with their balances\",\r\n            \"type\": \"Functional\",\r\n            \"startDate\": \"2021-12-08\",\r\n            \"endDate\": \"2021-12-22\"\r\n        },\r\n        {\r\n            \"title\": \"Mask card numbers\",\r\n            \"summary\": \"Mask customer card number before showing on dashboard\",\r\n            \"type\": \"Functional\",\r\n            \"startDate\": \"2021-12-15\",\r\n            \"endDate\": \"2021-12-30\"\r\n        }\r\n    ],\r\n    \"startDate\": \"2021-11-01\",\r\n    \"endDate\": \"2022-06-30\",\r\n    \"mentorId\": \"615c9022cc437b0bf4249b5c\",\r\n    \"members\": [\r\n        \"615c90ffcc437b0bf4249b61\"\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://afternoon-meadow-06331.herokuapp.com/projects/delete-Project/6166b0be9ff2ca7e1461029c",
+					"protocol": "https",
+					"host": [
+						"afternoon-meadow-06331",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"projects",
+						"delete-Project",
+						"6166b0be9ff2ca7e1461029c"
+					]
+				},
+				"description": "delete task by taskId"
+			},
+			"response": []
+		},
+		{
+			"name": "delete-task",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"projectName\": \"Customer dashboard 1\",\r\n    \"requirements\": [\r\n        {\r\n            \"title\": \"Display all customer accounts on dashboard with balances\",\r\n            \"summary\": \"Show all the customer banks accounts on dashboard with their balances\",\r\n            \"type\": \"Functional\",\r\n            \"startDate\": \"2021-12-08\",\r\n            \"endDate\": \"2021-12-22\"\r\n        },\r\n        {\r\n            \"title\": \"Mask card numbers\",\r\n            \"summary\": \"Mask customer card number before showing on dashboard\",\r\n            \"type\": \"Functional\",\r\n            \"startDate\": \"2021-12-15\",\r\n            \"endDate\": \"2021-12-30\"\r\n        }\r\n    ],\r\n    \"startDate\": \"2021-11-01\",\r\n    \"endDate\": \"2022-06-30\",\r\n    \"mentorId\": \"615c9022cc437b0bf4249b5c\",\r\n    \"members\": [\r\n        \"615c90ffcc437b0bf4249b61\"\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://afternoon-meadow-06331.herokuapp.com/taskLists/delete-task/6166b16a9ff2ca7e146102a8",
+					"protocol": "https",
+					"host": [
+						"afternoon-meadow-06331",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"taskLists",
+						"delete-task",
+						"6166b16a9ff2ca7e146102a8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "upload-single-image",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/Harshal/Downloads/MERN Stack Assignment.pdf"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://afternoon-meadow-06331.herokuapp.com/upload/fileUpload",
+					"protocol": "https",
+					"host": [
+						"afternoon-meadow-06331",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"upload",
+						"fileUpload"
+					]
+				},
+				"description": "upload any document ,file ,image"
+			},
+			"response": []
+		},
+		{
+			"name": "get project",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://afternoon-meadow-06331.herokuapp.com/projects/employees/6166afc69ff2ca7e14610298",
+					"protocol": "https",
+					"host": [
+						"afternoon-meadow-06331",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"projects",
+						"employees",
+						"6166afc69ff2ca7e14610298"
+					]
+				},
+				"description": "get project by employeeId or mentorId"
+			},
+			"response": []
+		},
+		{
+			"name": "get-all-task",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://afternoon-meadow-06331.herokuapp.com/taskLists/listall-task",
+					"protocol": "https",
+					"host": [
+						"afternoon-meadow-06331",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"taskLists",
+						"listall-task"
+					]
+				},
+				"description": "get all task"
+			},
+			"response": []
+		},
+		{
+			"name": "find-task-id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://afternoon-meadow-06331.herokuapp.com/taskLists/find-task/61653836305f9644d3ad6e84",
+					"protocol": "https",
+					"host": [
+						"afternoon-meadow-06331",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"taskLists",
+						"find-task",
+						"61653836305f9644d3ad6e84"
+					]
+				},
+				"description": "get task by taskId"
+			},
+			"response": []
+		},
+		{
+			"name": "update-project",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"projectName\": \"Customer Dashboard\",\r\n    \"startDate\": \"2021-12-01\",\r\n    \"endDate\": \"2021-06-30\",\r\n    \"mentorId\": \"61543c856ce901b4de16f3fe\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://afternoon-meadow-06331.herokuapp.com/projects/update-project/615c93f588a5d19047cdc40b",
+					"protocol": "https",
+					"host": [
+						"afternoon-meadow-06331",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"projects",
+						"update-project",
+						"615c93f588a5d19047cdc40b"
+					]
+				},
+				"description": "update project by projectId"
+			},
+			"response": []
+		},
+		{
+			"name": "add-members",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"projectName\": \"Optimum dashboard 5\",\r\n    \"startDate\": \"2021-12-01\",\r\n    \"endDate\": \"2022-02-28\",\r\n    \"members\": [\"6166afc69ff2ca7e14610298\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://afternoon-meadow-06331.herokuapp.com/projects/add-members",
+					"protocol": "https",
+					"host": [
+						"afternoon-meadow-06331",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"projects",
+						"add-members"
+					]
+				},
+				"description": "add members in project"
+			},
+			"response": []
+		},
+		{
+			"name": "remove-members",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"projectName\": \"Customer Dashboard\",\r\n    \"members\": [\"615c9082cc437b0bf4249b5d\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://afternoon-meadow-06331.herokuapp.com/projects/remove-members",
+					"protocol": "https",
+					"host": [
+						"afternoon-meadow-06331",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"projects",
+						"remove-members"
+					]
+				},
+				"description": "remove members from project"
+			},
+			"response": []
+		},
+		{
+			"name": "add-requirements",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"projectName\": \"Customer Dashboard 1\",\r\n    \"requirements\": [\r\n        {\r\n            \"title\": \"Display all customer accounts on dashboard with balances\",\r\n            \"summary\": \"Show all the customer banks accounts on dashboard with their balances\",\r\n            \"type\": \"Functional\",\r\n            \"startDate\": \"2021-12-08\",\r\n            \"endDate\": \"2021-12-22\"\r\n        },\r\n        {\r\n            \"title\": \"Mask card numbers\",\r\n            \"summary\": \"Mask customer card number before showing on dashboard\",\r\n            \"type\": \"Functional\",\r\n            \"startDate\": \"2021-12-15\",\r\n            \"endDate\": \"2021-12-30\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://afternoon-meadow-06331.herokuapp.com/projects/add-requirements",
+					"protocol": "https",
+					"host": [
+						"afternoon-meadow-06331",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"projects",
+						"add-requirements"
+					]
+				},
+				"description": "add requirements in project"
+			},
+			"response": []
+		},
+		{
+			"name": "get-all-projects",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://afternoon-meadow-06331.herokuapp.com/projects/allProject",
+					"protocol": "https",
+					"host": [
+						"afternoon-meadow-06331",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"projects",
+						"allProject"
+					]
+				},
+				"description": "get all projects"
+			},
+			"response": []
+		}
+	]
+}
