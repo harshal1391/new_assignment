@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const path = require("path");
 const projectCtrl = require("../controllers/project.controller");
+const { protect } = require("../middleware/auth");
 
 router.route("/create-project").post(projectCtrl.createProject);
 
@@ -14,7 +15,7 @@ router.route("/add-requirements").put(projectCtrl.addProjectRequirement);
 
 //router.route("/remove-requirements").delete(projectCtrl.removeProjectMember);
 
-router.route("/allProject").get(projectCtrl.findAllProjects);
+ router.route("/allProject").get(projectCtrl.findAllProjects);
 
 router.route("/employees/:id").get(projectCtrl.getProjects);
 

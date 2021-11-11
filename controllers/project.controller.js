@@ -5,6 +5,7 @@ const db = require("../server");
 const userColl = db.collection("users");
 const projectColl = db.collection("projects");
 const requirementsColl = db.collection("requirements");
+const technologyColl = db.collection("technology");
 const query = require("../query/query");
 const moment = require("moment");
 const ObjectId = require("mongodb").ObjectId;
@@ -32,6 +33,7 @@ const createProject = async (req, res, next) => {
       let message = `Employee is not mentor. Only mentor can create a project.`;
       let obj = resPattern.errorPattern(httpStatus.BAD_REQUEST, message);
       return res.status(obj.code).json(obj);
+      
     }
 
     if (!req.body.startDate) {
@@ -45,19 +47,24 @@ const createProject = async (req, res, next) => {
     if (req.body.endDate) {
       newProject.endDate = moment(req.body.endDate).format("YYYY-MM-DD");
     }
+    let technology = req.body.technology;
+    newProject.technology = [];
+    technology.map((technology) =>
+      newProject.technology.push(ObjectId(technology))
+    );
 
     let members = req.body.members;
     newProject.members = [];
     members.map((member) => newProject.members.push(ObjectId(member)));
     const insertdata = await query.insert(projectColl, newProject);
 
-     let documents = req.body.documents;
+    let documents = req.body.documents;
     newProject.documents = [];
-    documents.map((document) =>
-      newProject.documents.push(document)
-    );
-    //const insertdata = await query.insert(projectColl, newProject);
+    documents.map((document) => newProject.documents.push(document));
+
     
+   
+    //const insertdata = await query.insert(projectColl, newProject);
 
     if (req.body.requirements.length > 0) {
       let requirements = req.body.requirements;
@@ -68,7 +75,6 @@ const createProject = async (req, res, next) => {
         console.log(newProject.requirements);
         console.log(insertReq.insertedIds[i]);
       }
-      
     }
 
     if (insertdata.acknowledged) {
@@ -106,10 +112,11 @@ const getProjects = async (req, res, next) => {
       let message = `Employee does not exists in employee records`;
       let obj = resPattern.errorPattern(httpStatus.BAD_REQUEST, message);
       return res.status(obj.code).json(obj);
-
     }
 
-    var projectQuery = { $or: [ {mentorId: req.params.id}, {members: ObjectId(req.params.id)} ] }
+    var projectQuery = {
+      $or: [{ mentorId: req.params.id }, { members: ObjectId(req.params.id) }],
+    };
 
     const projects = await query.find(projectColl, projectQuery);
 
@@ -308,11 +315,7 @@ const addProjectRequirement = async (req, res, next) => {
 const deleteProgram = async (req, res, next) => {
   try {
     let deleteId = { _id: ObjectId(req.body._id) };
-    const deleteProgram = await query.deleteOne(
-      projectColl,
-      { _id: deleteId },
-      
-    );
+    const deleteProgram = await query.deleteOne(projectColl, { _id: deleteId });
     const obj = resPattern.successPattern(
       httpStatus.OK,
       deleteProgram,
@@ -329,12 +332,47 @@ const deleteProgram = async (req, res, next) => {
 const findAllProjects = async (req, res, next) => {
   console.log("findAllProjects");
     try {
-        const findallProjects = await query.find(
-          projectColl,
-          {},
-          { createdAt: -1 }
+       let currentDate = moment().format("YYYY-MM-DDT23:59:59");
+       let search = req.query.search;
+       let project = {};
+       if (search) {
+         project = {
+           $match: {
+             startDate: { $gte: currentDate },
+             $or: [
+               { firstName: new RegExp(search, "i") },
+               { lastName: new RegExp(search, "i") },
+             ],
+           },
+         };
+       } else {
+         project = {
+           $match: { startDate: { $gte: currentDate } },
+         };
+       }
+       let projectData = await query.aggregate(projectColl, [
+         project,
+         {
+           $lookup: {
+             from: "technology",
+             localField: "technology",
+             foreignField: "_id",
+             as: "technology",
+           },
+         },
+       ]);
+
+        // const findallProjects = await query.find(
+        //   projectColl,
+        //   {},
+        //   { createdAt: -1 }
+        // );
+
+        const obj = resPattern.successPattern(
+          httpStatus.OK,
+          projectData,
+          `success`
         );
-        const obj = resPattern.successPattern(httpStatus.OK, findallProjects, `success`);
         return res.status(obj.code).json({
             ...obj
         });

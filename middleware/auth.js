@@ -4,7 +4,7 @@ const httpStatus = require("http-status");
 const APIError = require("../helpers/APIError");
 const db = require("../server");
 const query = require("../query/query");
-const userColl = db.collection("user");
+const userColl = db.collection("users");
 const { ObjectID } = require("mongodb");
 
 const protect = async (req, res, next) => {
@@ -31,7 +31,9 @@ const protect = async (req, res, next) => {
     console.log(decoded);
     // const user = await User.findById(decoded.id);
     const decodeId = { _id: ObjectID(decoded._id) };
+    console.log(decodeId);
     const user = await query.findOne(userColl, decodeId);
+    console.log(user);
     if (user) {
       req.user = user;
       next();

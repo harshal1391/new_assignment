@@ -23,6 +23,7 @@ const createtask = async (req, res, next) => {
       let obj = resPattern.errorPattern(httpStatus.BAD_REQUEST, message);
       return res.status(obj.code).json(obj);
     }
+    console.log(task);
     const insertdata = await query.insert(taskColl, task);
     if (insertdata.acknowledged) {
       const obj = resPattern.successPattern(
@@ -91,12 +92,57 @@ const deletetask = async (req, res, next) => {
 const listalltask = async (req, res, next) => {
   console.log("listalltask");
   try {
-    const listalltask = await query.find(taskColl, {}, { createdAt: -1 });
-    const obj = resPattern.successPattern(
-      httpStatus.OK,
-      listalltask,
-      `success`
-    );
+    let project = ObjectId(req.query.projectId);
+    let search = req.query.search;
+    let task = {};
+    if (search) {
+      task = {
+        $match: {
+          projectId: { $gte: project },
+          $or: [{ description: new RegExp(search, "i") }],
+        },
+      };
+    } else {
+      task = {
+        $match: { projectId: { $gte: project } },
+      };
+    }
+    let taskData = await query.aggregate(taskColl, [
+      task,
+      {
+        $lookup: {
+          from: "projects",
+          localField: "projectId",
+          foreignField: "_id",
+          as: "projects",
+        },
+      },
+      {
+        $unwind: {
+          path: "$projects",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
+        $lookup: {
+          from: "technology",
+          localField: "projects.technology",
+          foreignField: "_id",
+          as: "technology",
+        },
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "projects.members",
+          foreignField: "_id",
+          as: "members",
+        },
+      },
+    ]);
+
+    //const listalltask = await query.find(taskColl, {}, { createdAt: -1 });
+    const obj = resPattern.successPattern(httpStatus.OK, taskData, `success`);
     return res.status(obj.code).json({
       ...obj,
     });

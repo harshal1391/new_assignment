@@ -44,6 +44,33 @@ const singleUpload = async (req, res, next) => {
   });
 };
 
+const multipleUpload = async (req, res, next) => {
+  try {
+    // get files and verify files upload
+    const files = req.files;
+    if (!files || files.length === 0) {
+      return next(new APIError("File not found", httpStatus.NOT_FOUND, true));
+    }
+
+    // filter files data
+    let filesData = [];
+    files.forEach((file) => {
+      const extname = path.extname(file.originalname);
+      filesData.push({
+        url: file.location,
+        type: extname,
+      });
+    });
+
+    // send response
+    let obj = resPattern.successPattern(httpStatus.OK, filesData, "success");
+    return res.status(obj.code).json(obj);
+  } catch (e) {
+    return next(new APIError(e.message, httpStatus.BAD_REQUEST, true));
+  }
+};
+
 module.exports = {
   singleUpload,
+  multipleUpload,
 };

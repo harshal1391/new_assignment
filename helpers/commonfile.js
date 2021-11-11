@@ -71,48 +71,50 @@ function generateOTP() {
 
 // send mail
 let sendEmail = async (toEmail, subject, bodyHtml, attachments) => {
-  // const transporter = nodeMailer.createTransport({
-  //     service: process.env.EMAIL_SERVICE,
-  //     auth: {
-  //         user: process.env.EMAIL_USER,
-  //         pass: process.env.EMAIL_PASS
-  //     }
-  // });
-  var transporter = nodeMailer.createTransport({
-    host: "email-smtp.eu-north-1.amazonaws.com", //SMTP HOST to send an email
-    secureConnection: true,
+  const transporter = nodeMailer.createTransport({
+    service: process.env.EMAIL_SERVICE,
     port: 465,
     auth: {
-      user: process.env.smtp_username,
-      pass: process.env.smtp_password,
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
+    },
+    tls: {
+      rejectUnauthorized: false,
     },
   });
+  // var transporter = nodeMailer.createTransport({
+  //   service: "gmail",
+  //   auth: {
+  //     user: process.env.smtp_username,
+  //     pass: process.env.smtp_password,
+  //   },
+  // });
 
   let mailOptions = {
-    from: "noreply@optimum-metoden.se",
+    from: "kashu123D@gmail.com",
     to: toEmail,
     subject: subject,
     html: `${bodyHtml}`,
     attachments: attachments,
   };
 
-  //   await transporter.sendMail(mailOptions, (error, info) => {
-  //     if (error) {
-  //       console.log(error);
-  //     } else {
-  //       console.log("Email sent: " + info.response);
-  //     }
-  //   });
+    await transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Email sent: " + info.response);
+      }
+    });
   console.log("toEmail => ", toEmail);
   console.log("------------------11111111-------------");
-  transporter
-    .sendMail(mailOptions)
-    .then((message) => {
-      console.log("message => ", message);
-    })
-    .catch((error) => {
-      console.log("error => ", error);
-    });
+  // transporter
+  //   .sendMail(mailOptions)
+  //   .then((message) => {
+  //     console.log("message => ", message);
+  //   })
+  //   .catch((error) => {
+  //     console.log("error => ", error);
+  //   });
   console.log("-----------------22222222222---------");
 };
 
